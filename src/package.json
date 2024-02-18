@@ -1,0 +1,33 @@
+{
+  "name": "topics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Keiji Mitaki",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.19",
+    "colors": "^1.4.0",
+    "ejs": "^3.1.9",
+    "express": "^4.17.1",
+    "franc": "^5.0.0",
+    "langs": "^2.0.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.1",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.3.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2"
+  }
+}

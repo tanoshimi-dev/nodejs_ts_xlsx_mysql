@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  e2e-express-web:
+    container_name: 'e2e.express.web'
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx.dockerfile
+    ports:
+      - '41100:80'
+    volumes:
+      #- ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      e2e-nodejs:
+        condition: service_started
+  e2e-nodejs:
+    container_name: 'e2e.nodejs'
+    build:
+      context: .
+      dockerfile: dockerfiles/nodejs.dockerfile
+    volumes:
+    #  - ./src:/app:delegated
+      - ./src:/app
+    #command: node index.js
+    #command: nodemon index.js
+    command: nodemon index.ts
+    environment:
+      CHOKIDAR_USEPOLLING: 1
+    depends_on:
+      e2e-mysql:
+        condition: service_started
+
+  e2e-mysql:
+    container_name: 'e2e.db.mysql'
+    image: mysql:5.7
+    #ports:
+    #  - '13006:3306'
+    environment:
+      MYSQL_DATABASE: e2e-db
+      MYSQL_USER: te2ev
+      MYSQL_PASSWORD: eoatwdpass
+      MYSQL_ROOT_PASSWORD: rootDev3
+    volumes:
+      - ./db/data:/var/lib/mysql
+
+  e2e-myadmin:
+    container_name: 'e2e.myadmin'
+    depends_on:
+      - e2e-mysql
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: e2e-mysql
+    restart: always
+    ports:
+      - "41200:80"
+
+#networks:
+#  default:
+#    external:
+#      name: rd-shared
